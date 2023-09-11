@@ -7,6 +7,7 @@ const Users = () => {
     const [users,setUsers] = useState([])   
     
     const cent = {
+        display:'flex',
         justifyContent: 'center',
         alignItems: 'center',
     }
@@ -34,13 +35,16 @@ const Users = () => {
   return (
     <>      
     <br /><br /><br />
-    <h2>User Data</h2>
+    <h2 style={{textAlign:'center'}}>User Data</h2>
     <br />
     <br />
     <div style={cent}>
-    <Link to='/create' className='btn btn-primary' style={cent}>Add</Link>
-
-      <table className='table tbl-stripped' style={{width:'max-content',border : '2px solid red'}} cellPadding={'10px'} cellSpacing={'10px'}>
+       <div> <Link to='/create' className='btn btn-primary' style={cent}>Registration</Link></div>
+       &nbsp;&nbsp;&nbsp; <div><Link to='/login' className='btn btn-primary' style={cent}>Login</Link></div>
+    </div>
+<br />
+    <div style={cent}>
+    <table className='table tbl-stripped' style={{width:'max-content',border : '2px solid red'}} cellPadding={'10px'} cellSpacing={'10px'}>
       <thead>
         <tr>
             <th>Name</th>
@@ -57,7 +61,7 @@ const Users = () => {
                         <td>{user.email}</td>
                         <td>{user.age}</td>
                         <td>
-                           <Link to={`update/${user._id}`}> <button className='btn btn-info'>Edit</button> </Link>
+                           <Link to={`update/${user._id}`}> <button className='btn btn-warning'>Edit</button> </Link>
                             <button className='btn btn-danger' onClick={(e) => handleDelete(user._id)}>Delete</button>
                         </td>
                     </tr>

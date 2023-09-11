@@ -4,7 +4,9 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Users from './components/Users';
 import Create from './components/Create';
 import Update from './components/Update';
+import Login from './components/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   return (
     <div className="App">
@@ -12,6 +14,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Users />}></Route>
           <Route path='/create' element={<Create/>}></Route>
+          <Route path='/login' element={<Login/>}></Route>
           <Route path='/update/:id' element={<Update/>}></Route>
         </Routes>
       </BrowserRouter>
