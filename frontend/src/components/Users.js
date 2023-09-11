@@ -44,7 +44,7 @@ const Users = () => {
     </div>
 <br />
     <div style={cent}>
-    <table className='table tbl-stripped' style={{width:'max-content',border : '2px solid red'}} cellPadding={'10px'} cellSpacing={'10px'}>
+    <table className='table tbl-stripped' style={{width:'max-content',border : '2px solid black'}} cellPadding={'10px'} cellSpacing={'10px'}>
       <thead>
         <tr>
             <th>Name</th>

@@ -46,8 +46,7 @@ const Create = () => {
               type="text"
               className="form-control mt-1"
               placeholder="Enter name"
-              onChange={(e) => setName(e.target.value)} required
-            />
+              onChange={(e) => setName(e.target.value)} required />
           </div>
           <div className="form-group mt-3">
             <label>Email</label>
@@ -55,8 +54,7 @@ const Create = () => {
               type="email"
               className="form-control mt-1"
               placeholder="Email Address"
-              onChange={(e) => setEmail(e.target.value)} required 
-            />
+              onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div className="form-group mt-3">
             <label>Password</label>
@@ -64,8 +62,7 @@ const Create = () => {
               type="password"
               className="form-control mt-1"
               placeholder="Password"
-              onChange={(e) => setPass(e.target.value)} required 
-            />
+              onChange={(e) => setPass(e.target.value)} required />
           </div>
           <div className="form-group mt-3">
             <label>Age</label>
@@ -73,8 +70,7 @@ const Create = () => {
               type="number"
               className="form-control mt-1"
               placeholder="Age"
-              onChange={(e) => setAge(e.target.value)} required 
-            />
+              onChange={(e) => setAge(e.target.value)} required />
           </div>
           <div className="d-grid gap-2 mt-3">
             <button type="submit" className="btn btn-primary">

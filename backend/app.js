@@ -3,9 +3,12 @@ const mongoose = require("mongoose");
 const cors = require("cors")
 const UserModel = require("./models/users")
 const bcrypt = require("bcryptjs")
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
+
 const app = express();
 app.use(cors())
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
 
 const connect = async () =>{
     try{
@@ -50,15 +53,29 @@ app.post("/create",async (req,res) => {
         }
 
         const encryptedPass = await bcrypt.hash(pass, 10);
-        const user = await UserModel.create({
-          name,
-          email: email.toLowerCase(),
-          pass: encryptedPass,
-          age
-        });
-    
-        res.status(201).json(user);
+
+          const user = await UserModel.create({
+            name,
+            email: email.toLowerCase(),
+            pass: encryptedPass,
+            age,
+          });
+
+        //   const token = jwt.sign(
+        //     {user_id:user._id, email },
+        //     process.env.TOKEN_KEY,
+        //     {
+        //       expiresIn: "2h",
+        //     }
+        //   );
+
+        //   res.cookie('jwt', token,{
+        //     httpOnly : true,
+        //     maxAge : 24 * 60 * 60 * 1000 // 24 hours
+        // })
         
+        res.status(201).json(user);
+        console.log(user);
       } catch (err) {
         console.log(err);
       }
