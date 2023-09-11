@@ -13,6 +13,7 @@ const Create = () => {
     const data = {
         name : name,
         email : email,
+        pass : pass,
         age : age,
     }
     const handleSubmit = (e) => {
@@ -44,7 +45,7 @@ const Create = () => {
             <div class="form-group">
                 <label for="pass">Password</label>
                 <input type="password" class="form-control" id="pass"  placeholder="Enter Password" 
-                onChange={(e) => setEmail(e.target.value)} required />
+                onChange={(e) => setPass(e.target.value)} required />
             </div>
 
             <div class="form-group">
