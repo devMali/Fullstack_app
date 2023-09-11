@@ -7,7 +7,6 @@ const Users = () => {
     const [users,setUsers] = useState([])   
     
     const cent = {
-        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
     }
@@ -24,27 +23,23 @@ const Users = () => {
     },[])
 
     const handleDelete = (id) => {
-        let cnfrm = confirm(`Are you sure you want to delete`);
-
-        if(cnfrm == true) {
             axios.delete('http://localhost:3031/delUser/'+id)
             .then(res => {
                 console.log(res);
                 window.location.reload(false);
             })
             .catch(err => console.log(err))
-        }
     }
 
   return (
     <>      
     <br /><br /><br />
-    <h2 style={{textAlign:'center'}}>User Data</h2>
+    <h2>User Data</h2>
     <br />
-        <Link to='/create' className='btn btn-primary' style={cent}>Add</Link>
     <br />
     <div style={cent}>
-    
+    <Link to='/create' className='btn btn-primary' style={cent}>Add</Link>
+
       <table className='table tbl-stripped' style={{width:'max-content',border : '2px solid red'}} cellPadding={'10px'} cellSpacing={'10px'}>
       <thead>
         <tr>
