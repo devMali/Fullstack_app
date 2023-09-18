@@ -99,5 +99,41 @@ app.delete('/delUser/:id',(req,res) =>{
     .catch(err => res.json(err))
 })
 
+app.post('/login',async (req,res)=> {
+  try {
+    // Get user input
+    const { email, pass } = req.body;
 
+    // Validate user input
+    if (!(email && pass)) {
+      res.status(401).send("All input is required");
+    }
+    // Validate if user exist in our database
+    const user = await UserModel.findOne({ email });
+
+    if(!user){
+      res.status(402).send("User not exist");
+    }
+    if (user && (await bcrypt.compare(pass, user.pass))) {
+      // Create token
+      const token = jwt.sign(
+        { user_id: user._id, email },
+        process.env.TOKEN_KEY,
+        {
+          expiresIn: "2h",
+        }
+      );
+
+        res.cookie('jwt', token,{
+            httpOnly : true,
+            maxAge : 24 * 60 * 60 * 1000 // 24 hours
+        })
+        res.status(200).json(user);
+        console.log(user);
+      }
+    res.status(400).send("Invalid Credentials");
+  } catch (err) {
+    console.log(err);
+  }
+})
 module.exports = app;

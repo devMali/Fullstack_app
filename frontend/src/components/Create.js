@@ -18,7 +18,7 @@ const Create = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault()
-       const response = axios.post("http://localhost:3031/create",data)
+       axios.post("http://localhost:3031/create",data)
         .then(result => {
             console.log(result);
             navigate('/')
