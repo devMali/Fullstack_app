@@ -11,9 +11,6 @@ const Users = () => {
         justifyContent: 'center',
         alignItems: 'center',
     }
-    const btn ={
-        width:'50px'
-    }
     useEffect(() =>{
         axios.get('http://localhost:3031/users')
         .then(result =>{
@@ -38,11 +35,6 @@ const Users = () => {
     <h2 style={{textAlign:'center'}}>User Data</h2>
     <br />
     <br />
-    <div style={cent}>
-       <div> <Link to='/create' className='btn btn-primary' style={cent}>Registration</Link></div>
-       &nbsp;&nbsp;&nbsp; <div><Link to='/login' className='btn btn-primary' style={cent}>Login</Link></div>
-    </div>
-<br />
     <div style={cent}>
     <table className='table tbl-stripped' style={{width:'max-content',border : '2px solid black'}} cellPadding={'10px'} cellSpacing={'10px'}>
       <thead>

@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import '../App.css'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+import toast from 'react-hot-toast';
 
 const Login = () => {
 
@@ -19,16 +20,17 @@ const Login = () => {
    axios.post("http://localhost:3031/login",data, { withCredentials: true })
     .then(result => {
         console.log(result);
-        navigate('/welcome')
+        navigate('/welcome');
+        toast.success("Login successful")
     })
     .catch((err) => {
         if(err.response){
             const code = err.response.status;
             
             if(code == 402){
-                alert("User not exists")
+                toast.error("User not exists")
             }if(code == 400){
-                alert("Invalid Credentials")
+              toast.error("Invalid Credentials")
             }
         }
     })
@@ -46,7 +48,7 @@ const Login = () => {
               type="email"
               className="form-control mt-1"
               placeholder="Enter email"
-              onChange={(e) => setEmail(e.target.value)} required />
+              onChange={(e) => setEmail(e.target.value)} autoFocus required />
           </div>
           <div className="form-group mt-3">
             <label>Password</label>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
-
+import toast from 'react-hot-toast'
 const Create = () => {
 
     const [name,setName] = useState('')
@@ -21,7 +21,8 @@ const Create = () => {
        axios.post("http://localhost:3031/create",data)
         .then(result => {
             console.log(result);
-            navigate('/')
+            navigate('/login');
+            toast.success("Registration Successfully")
         })
         .catch((err) => {
             if(err.response){
@@ -46,7 +47,7 @@ const Create = () => {
               type="text"
               className="form-control mt-1"
               placeholder="Enter name"
-              onChange={(e) => setName(e.target.value)} required />
+              onChange={(e) => setName(e.target.value)} autoFocus required />
           </div>
           <div className="form-group mt-3">
             <label>Email</label>

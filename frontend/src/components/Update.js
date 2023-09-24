@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {useNavigate,useParams} from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 const Update = () => {
     const {id} = useParams()
@@ -30,7 +31,8 @@ const Update = () => {
         axios.put("http://localhost:3031/updateUser/"+id,data)
         .then(result => {
             console.log(result);
-            navigate('/')
+            navigate('/welcome')
+            toast.success("Updated user successfully")
         })
         .catch(err => console.log(err))
     }
