@@ -16,7 +16,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-   axios.post("http://localhost:3031/login",data)
+   axios.post("http://localhost:3031/login",data, { withCredentials: true })
     .then(result => {
         console.log(result);
         navigate('/welcome')

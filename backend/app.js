@@ -5,10 +5,41 @@ const UserModel = require("./models/users")
 const bcrypt = require("bcryptjs")
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-
+const auth = require("./middleware/auth")
 const app = express();
-app.use(cors())
-app.use(express.json({ limit: "50mb" }));
+const cookieParser = require("cookie-parser");
+const bodyParser = require('body-parser');
+
+// const corsOptions = {
+//   origin: 'http://localhost:3000',
+//   withCredentials: 'true', // Don't forget to specify this if you need cookies
+// };
+
+// app.use(cors(corsOptions))
+// app.use(cookieParser());
+// app.use(express.json({ limit: "50mb" }));
+
+
+app.use(cors({
+    credentials:true,
+    origin: ['http://localhost:3031', 'http://localhost:3000','http://localhost:3001','http://localhost:4200']
+}))
+
+
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+app.use(express.json({limit: '10mb'}))
+app.use(express.urlencoded({limit: '10mb'}))
+app.use(cookieParser())
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
+    next();
+  });
+
+
 
 const connect = async () =>{
     try{
@@ -61,19 +92,6 @@ app.post("/create",async (req,res) => {
             age,
           });
 
-        //   const token = jwt.sign(
-        //     {user_id:user._id, email },
-        //     process.env.TOKEN_KEY,
-        //     {
-        //       expiresIn: "2h",
-        //     }
-        //   );
-
-        //   res.cookie('jwt', token,{
-        //     httpOnly : true,
-        //     maxAge : 24 * 60 * 60 * 1000 // 24 hours
-        // })
-        
         res.status(201).json(user);
         console.log(user);
       } catch (err) {
@@ -101,21 +119,18 @@ app.delete('/delUser/:id',(req,res) =>{
 
 app.post('/login',async (req,res)=> {
   try {
-    // Get user input
     const { email, pass } = req.body;
 
-    // Validate user input
     if (!(email && pass)) {
       res.status(401).send("All input is required");
     }
-    // Validate if user exist in our database
     const user = await UserModel.findOne({ email });
 
     if(!user){
       res.status(402).send("User not exist");
     }
-    if (user && (await bcrypt.compare(pass, user.pass))) {
-      // Create token
+    if (user && (await bcrypt.compare(pass, user.pass)))
+    {
       const token = jwt.sign(
         { user_id: user._id, email },
         process.env.TOKEN_KEY,
@@ -124,16 +139,29 @@ app.post('/login',async (req,res)=> {
         }
       );
 
-        res.cookie('jwt', token,{
-            httpOnly : true,
-            maxAge : 24 * 60 * 60 * 1000 // 24 hours
+       res.cookie("token", token, {
+          httpOnly: true,
+          expires : new Date(Date.now() + 60000 * 5)
         })
-        res.status(200).json(user);
-        console.log(user);
-      }
+        .status(200)
+        .json({ message: "Logged in successfully 😊 👌" });
+    }
+
     res.status(400).send("Invalid Credentials");
   } catch (err) {
     console.log(err);
   }
 })
+
+app.get("/welcome", auth, (req, res) => {
+  res.status(200).send("Welcome 🙌 ");
+});
+
+app.get("/logout", auth, (req, res) => {
+  return res
+    .clearCookie("token")
+    .status(200)
+    .json({ message: "Successfully logged out 😏 🍀" });
+});
+
 module.exports = app;
