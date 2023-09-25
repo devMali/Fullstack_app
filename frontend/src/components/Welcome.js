@@ -29,11 +29,13 @@ const Welcome = () => {
 
   return (
     <div>
-      Welcome User
+      <div style={{display:'flex',justifyContent:'space-between'}}>
+        <span><h2>Welcome User</h2></span>
+       <span><button onClick={handleLogout} >Logout</button></span> 
+      </div>
     <br />
-      List of the Users:
       <Users />
-      <button onClick={handleLogout} >Logout</button>
+      
     </div>
   )
 }

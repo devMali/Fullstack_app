@@ -7,6 +7,7 @@ const Create = () => {
     const [name,setName] = useState('')
     const [email,setEmail] = useState('')
     const [pass,setPass] = useState('')
+    const [cpass,setCpass] = useState('')
     const [age,setAge] = useState('')
     const navigate = useNavigate()
 
@@ -17,24 +18,29 @@ const Create = () => {
         age : age,
     }
     const handleSubmit = (e) => {
-        e.preventDefault()
-       axios.post("http://localhost:3031/create",data)
-        .then(result => {
-            console.log(result);
-            navigate('/login');
-            toast.success("Registration Successfully")
-        })
-        .catch((err) => {
-            if(err.response){
-                const code = err.response.status;
-                
-                if(code == 409){
-                    alert("User already exists")
-                }if(code == 400){
-                    alert("All inputs are required")
-                }
-            }
-        })
+      e.preventDefault()
+      if(cpass === pass){
+        axios.post("http://localhost:3031/create",data)
+         .then(result => {
+             console.log(result);
+             navigate('/login');
+             toast.success("Registration Successfully")
+         })
+         .catch((err) => {
+             if(err.response){
+                 const code = err.response.status;
+                 
+                 if(code == 409){
+                     alert("User already exists")
+                 }if(code == 400){
+                     alert("All inputs are required")
+                 }
+             }
+         })
+       }
+       else{
+        toast.error("Password not match")
+       }
     }
   return (
     <div className="Auth-form-container">
@@ -64,6 +70,14 @@ const Create = () => {
               className="form-control mt-1"
               placeholder="Password"
               onChange={(e) => setPass(e.target.value)} required />
+          </div>
+          <div className="form-group mt-3">
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              className="form-control mt-1"
+              placeholder="Password"
+              onChange={(e) => setCpass(e.target.value)} required />
           </div>
           <div className="form-group mt-3">
             <label>Age</label>
