@@ -7,10 +7,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Welcome from './components/Welcome';
 import Home from './components/Home';
 import  { Toaster } from 'react-hot-toast';
+import { UserProvider } from './Context/UserContext';
 function App() {
   return (
     <div className="App">
       <Toaster position='top-right' />
+      <UserProvider>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />}></Route>
@@ -20,6 +22,7 @@ function App() {
           <Route path='/welcome/update/:id' element={<Update/>}></Route>
         </Routes>
       </BrowserRouter>
+      </UserProvider>
     </div>
   );
 }

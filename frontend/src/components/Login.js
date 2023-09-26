@@ -3,12 +3,13 @@ import '../App.css'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import toast from 'react-hot-toast';
-
+import { useUser } from '../Context/UserContext';
 const Login = () => {
 
   const [email,setEmail] = useState('')
   const [pass,setPass] = useState('')
   const navigate = useNavigate()
+  const { setUser } = useUser();
 
   const data = {
     email : email,
@@ -19,7 +20,8 @@ const Login = () => {
     e.preventDefault()
    axios.post("http://localhost:3031/login",data, { withCredentials: true })
     .then(result => {
-        console.log(result);
+        console.log(result.data);
+        setUser(result.data);
         navigate('/welcome');
         toast.success("Login successful")
     })

@@ -144,7 +144,7 @@ app.post('/login',async (req,res)=> {
           expires : new Date(Date.now() + 60000 * 5)
         })
         .status(200)
-        .json({ message: "Logged in successfully 😊 👌" });
+        .json({ message: "Logged in successfully 😊 👌",data:user })
     }
 
     res.status(400).send("Invalid Credentials");
