@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {useNavigate,useParams} from 'react-router-dom'
 import toast from 'react-hot-toast'
+import authHoc from './HOC/authHoc'
 
 const Update = () => {
     const {id} = useParams()
@@ -66,4 +67,4 @@ const Update = () => {
   )
 }
 
-export default Update
+export default authHoc(Update)
